@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Muhammad Lailil Mahfud">
+    <meta name="nim" content="042096383">
+    <meta name="prodi" content="Sistem Informasi">
+    <title>Mahasiswa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="min-vh-100 container d-flex justify-content-center mt-5 mb-5" id="app">
+        <div class="col-12 col-md-9 col-lg-6  min-vh-100 d-flex justify-content-center flex-column">
+            <div class="col-sm-12">
+                <div class="d-flex justify-content-between">
+                    <button type="button" @click="fetchListMahasiswa" class="btn btn-primary">Tampilkan Data</button>
+                    <input type="search" class="form-control" style="width: 250px" placeholder="Search ..."
+                        v-model="search"
+                        v-bind:disabled="!listMahasiswa.length">
+                </div>
+                <table class="table table-striped mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Kelas</th>
+                            <th scope="col">Nilai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-if="!listMahasiswa.length">
+                            <td colspan="4" class="text-center">Tidak ada data</td>
+                        </tr>
+                        <tr v-for="(row,x) in listMahasiswa" :key="x">
+                            <td>{{x+1}}</td>
+                            <td>{{row.name}}</td>
+                            <td>{{row.class}}</td>
+                            <td>{{row.score}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+    <script type="module">
+        import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+        createApp({
+            data() {
+                return {
+                    api_url: 'http://localhost:8080',
+                    mahasiswa: [],
+                    search : ''
+                }
+            },
+            computed: {
+                listMahasiswa() {
+                    return this.mahasiswa.filter(rows => {
+                        return rows.name.toLowerCase().includes(this.search.toLowerCase())
+                    })
+                }
+            },
+            methods: {
+                fetchListMahasiswa() {
+                    axios.get(`${this.api_url}/mahasiswa`)
+                        .then((response) => {
+                            this.mahasiswa = response.data
+                        }).catch(err => {
+
+                        });
+                }
+            },
+        }).mount('#app')
+    </script>
+
+</body>
+
+</html>
