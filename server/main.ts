@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors';
-import Constanta from '@config/constanta'
-import { Route } from "src/route";
+import Constanta from './src/config/constanta'
+import { Route } from "./src/route";
 
 
 function main() {

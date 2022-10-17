@@ -1,17 +1,10 @@
 {
-    "ts-node": {
-        "require": ["tsconfig-paths/register"]
-    },
     "compilerOptions": {
         "module": "commonjs",
         "esModuleInterop": true,
         "target": "es5",
         "outDir": "build",
         "baseUrl": "./",
-        "strict": true,
-        "paths": {
-            "@config/*" : ["./src/config/*"],
-            "@controller/*" : ["./src/controller/*"]
-        }
+        "strict": true
     }
 }

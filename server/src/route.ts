@@ -1,5 +1,5 @@
 import express from "express";
-import * as mahasiswaController from "@controller/mahasiswa.controller"
+import * as mahasiswaController from "./controller/mahasiswa.controller"
 
 export const Route = express.Router();
 Route.get('/',(req,res,next)=>{
